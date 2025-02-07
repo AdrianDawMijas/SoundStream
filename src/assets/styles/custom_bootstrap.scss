@@ -1,0 +1,67 @@
+// 1. Importa solo funciones primero// 1. Importa solo funciones primero
+@import "../../../node_modules/bootstrap/scss/functions";
+
+
+// 2. Sobrescribe variables antes de importar `variables`
+$primary: #00c9a7; // Cambia el color principal
+$secondary: #b184f5; // Cambia color secundario
+
+$font-family-sans-serif: 'Roboto', sans-serif !default; // Cambiar fuente a roboto
+$font-family-base: $font-family-sans-serif;
+
+.bg-primary-gradient {
+  background: linear-gradient(to right, #437DDF, #40D8AB) !important;
+}
+
+
+
+@import "../../../node_modules/bootstrap/scss/variables";
+
+//futhermore it's necesary override the $theme-colors
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap/scss/functions";
+
+
+// 2. Sobrescribe variables antes de importar `variables`
+$primary: #00c9a7; // Cambia el color principal
+$secondary: #b184f5; // Cambia color secundario
+
+$font-family-sans-serif: 'Roboto', sans-serif !default; // Cambiar fuente a roboto
+$font-family-base: $font-family-sans-serif;
+
+.bg-primary-gradient {
+  background: linear-gradient(to right, #437DDF, #40D8AB) !important;
+}
+
+
+
+@import "../../../node_modules/bootstrap/scss/variables";
+
+//futhermore it's necesary override the $theme-colors
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark
+);
+
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
