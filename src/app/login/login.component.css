@@ -1,0 +1,37 @@
+/* Asegurar que el contenedor del input use posicionamiento relativo */
+.position-relative {
+  position: relative;
+  width: 100%;
+}
+
+/* Input ocupa el 100% del ancho */
+.password-input {
+  width: 100%;
+  padding-right: 40px; /* Espacio suficiente para el icono */
+  border-radius: 8px;
+}
+
+/* Posicionar el botón dentro del input */
+.password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 0;
+  background: transparent;
+  border: none;
+  width: 30px; /* Hace el botón más pequeño */
+  height: 30px;
+  display: flex;
+  cursor: pointer;
+}
+
+/* Estilo del icono */
+.password-toggle i {
+  color: #bbb; /* Color gris */
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+/* Cambio de color al pasar el mouse */
+.password-toggle:hover i {
+  color: #fff;
+}
