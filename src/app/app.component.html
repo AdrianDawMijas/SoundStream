@@ -1,10 +1,15 @@
 <body class="bg-primary-gradient d-flex flex-column">
-<!-- Header -->
-<app-header class="sticky-top mb-4 pb-5"></app-header>
+<div class="d-flex flex-column min-vh-100">
+  <!-- Header -->
+  <app-header></app-header>
 
-<router-outlet></router-outlet>
+  <!-- Contenedor Principal -->
+  <main class="flex-grow-1 d-flex align-items-center justify-content-center">
+    <router-outlet></router-outlet>
+  </main>
 
+  <!-- Footer -->
+  <app-footer class="bg-dark text-white text-center "></app-footer>
+</div>
 
-<!-- Footer -->
-<app-footer class="bg-dark text-light text-center"></app-footer>
 </body>

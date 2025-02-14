@@ -1,22 +1,37 @@
 <header class="bg-transparent position-absolute w-100">
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <div class="container">
+  <nav class="navbar navbar-expand-md navbar-light">
+    <div class="container-xl">
+      <!-- Marca visible solo en móviles -->
       <a class="navbar-brand d-lg-none fw-bold fs-4 text-white" href="#">SoundStream</a>
-      <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-              aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+
+      <!-- Botón Hamburguesa -->
+      <button class="navbar-toggler border-0 " type="button" data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+              aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-white fs-3"></i> <!-- Ícono de menú -->
       </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav gap-3 text-white">
-          <li class="nav-item"><a class="nav-link text-white" href="#">Create</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#">Library</a></li>
-          <li class="nav-item"><a class="nav-link text-white" href="#">Pricing</a></li>
-          <li class="nav-item">
-            <a class="btn btn-outline-light bg-transparent border-white text-white" href="#">Log in</a>
-          </li>
-          <li class="nav-item"><a class="btn btn-secondary text-white" href="#">Start Free Now</a></li>
-        </ul>
+
+      <!-- Contenedor del menú, se usa para desktop y móvil -->
+      <div class="offcanvas offcanvas-start bg-dark text-white-lg-none d-lg-flex d-block w-100"
+           tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header d-lg-none">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                  aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav gap-3 text-white ms-auto text-lg-start text-center">
+            <li class="nav-item"><a class="nav-link text-white" href="#">Create</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">Library</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="#">Pricing</a></li>
+            <li class="nav-item">
+              <a class="btn btn-outline-light" [routerLink]="'/login'">Log in</a>
+            </li>
+            <li class="nav-item">
+              <a class="btn btn-secondary text-white" href="#">Start Free Now</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </nav>
