@@ -1,42 +1,16 @@
-/* Asegurar que el contenedor del input use posicionamiento relativo */
-.position-relative {
-  position: relative;
-  width: 100%;
+body {
+  background: linear-gradient(to right, #3b8dff, #00d4ff);
 }
 
-/* Input ocupa el 100% del ancho */
-.password-input {
-  width: 100%;
-  padding-right: 40px; /* Espacio suficiente para el icono */
-  border-radius: 8px;
+/* Ajuste del título */
+h1 {
+  font-size: 3.5rem;
 }
 
-/* Posicionar el botón dentro del input */
-.password-toggle {
-  position: absolute;
-  right: 12px;
-  top: 0;
-  background: transparent;
-  border: none;
-  width: 30px; /* Hace el botón más pequeño */
-  height: 30px;
+/* Ajuste de la tarjeta para igualar alturas */
+.card {
+  height: 100%;
   display: flex;
-  cursor: pointer;
-}
-
-/* Estilo del icono */
-.password-toggle i {
-  color: #bbb; /* Color gris */
-  font-size: 1.2rem;
-  transition: color 0.3s ease;
-}
-
-/* Cambio de color al pasar el mouse */
-.password-toggle:hover i {
-  color: #fff;
-}
-/* Cambiar color del placeholder a blanco */
-.form-control::placeholder {
-  color: white !important;
-  opacity: 1; /* Asegura que se vea en todos los navegadores */
+  flex-direction: column;
+  justify-content: space-between;
 }

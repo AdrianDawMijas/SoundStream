@@ -1,0 +1,56 @@
+<div class="container-xl text-center pt-5">
+  <h1 class="fw-bold display-5 text-white d-none d-md-block">Princing prices</h1>
+  <p class="text-light fs-6 d-none d-md-block">
+    Start your AI music creation journey now and experience limitless possibilities!
+  </p>
+
+  <!-- Botón de alternancia Mensual/Anual -->
+  <div class="btn-group my-3">
+    <button
+      class="btn btn-outline-light px-3 py-1 small"
+      [class.active]="!isMonthly"
+      (click)="togglePricing()">
+      Pay annually
+    </button>
+    <button
+      class="btn btn-outline-light px-3 py-1 small"
+      [class.active]="isMonthly"
+      (click)="togglePricing()">
+      Pay monthly
+    </button>
+  </div>
+
+  <!-- Sección de Precios -->
+  <div class="row justify-content-center">
+    <div *ngFor="let plan of plans" class="col-lg-4 col-md-6 mb-3">
+      <div class="card text-white bg-dark shadow-sm rounded-3 h-100">
+        <div class="card-body py-3 px-3 text-start">
+          <h3 class="fw-bold fs-6 pb-3">{{ plan.name }}</h3>
+          <h2 class="fw-bold fs-4">
+            ${{ isMonthly ? plan.monthly : plan.annual }}
+            <span class="fs-7 text-white-50">{{ isMonthly ? 'Monthly' : 'Annually' }}</span>
+          </h2>
+          <p *ngIf="isMonthly && plan.name !== 'Free'" class="text-success small">
+            Save 20% on annual
+          </p>
+          <p *ngIf="isMonthly && plan.name == 'Free'" class="text-dark small">
+            Save 20% on annual
+          </p>
+          <button class="btn btn-primary w-100 fw-bold rounded-pill py-1 small">
+            Select
+          </button>
+          <p class="mt-2 fw-bold text-light small pt-2">Everything in {{ plan.name }}:</p>
+          <ul class="list-unstyled text-white-50 small">
+            <li *ngIf="plan.name === 'Free'">✔ 15 track creations / day</li>
+            <li *ngIf="plan.name === 'Free'">✔ 5 minutes maximum length</li>
+            <li *ngIf="plan.name !== 'Free'">✔ 900+ track creations / month</li>
+            <li *ngIf="plan.name === 'Pro'">✔ 3000 track creations / month</li>
+            <li>✔ Priority generation queue</li>
+            <li>✔ High quality MP3, WAV</li>
+            <li *ngIf="plan.name === 'Pro'">✔ General commercial use</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -11853,8 +11853,13 @@ textarea.form-control-lg {
 }
 
 .form-control::placeholder {
-  color: white !important;
+  color: grey !important;
   opacity: 1;
+  font-size: 14px; /* Ajusta el tamaño según lo necesites */
+}
+
+.bg-dark .form-control::placeholder {
+  color: grey !important;
 }
 
 /*!

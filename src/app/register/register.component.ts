@@ -3,15 +3,15 @@ import {NgClass} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
+  selector: 'app-register',
   imports: [
     NgClass,
     RouterLink
   ],
-  styleUrls: ['./login.component.scss']
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.css'
 })
-export class LoginComponent {
+export class RegisterComponent {
   showPassword: boolean = false;
 
   togglePassword() {
