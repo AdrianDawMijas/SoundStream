@@ -35,3 +35,8 @@
 .password-toggle:hover i {
   color: #fff;
 }
+/* Cambiar color del placeholder a blanco */
+.form-control::placeholder {
+  color: white !important;
+  opacity: 1; /* Asegura que se vea en todos los navegadores */
+}

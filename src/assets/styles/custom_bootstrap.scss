@@ -46,6 +46,11 @@ $font-family-base: $font-family-sans-serif;
   background: linear-gradient(to right, #437DDF, #40D8AB) !important;
 }
 
+.form-control::placeholder {
+  color: white !important;
+  opacity: 1;
+}
+
 
 
 @import "../../../node_modules/bootstrap/scss/variables";
