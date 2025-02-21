@@ -1,19 +1,18 @@
 <header class="bg-transparent position-absolute w-100">
   <nav class="navbar navbar-expand-md navbar-light">
     <div class="container-xl">
-      <!-- Marca visible solo en móviles -->
       <a class="navbar-brand d-lg-none fw-bold fs-4 text-white" href="#">SoundStream</a>
 
       <!-- Botón Hamburguesa -->
-      <button class="navbar-toggler border-0 " type="button" data-bs-toggle="offcanvas"
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
               aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars text-white fs-3"></i> <!-- Ícono de menú -->
+        <i class="fas fa-bars text-white fs-3"></i>
       </button>
 
-      <!-- Contenedor del menú, se usa para desktop y móvil -->
+      <!-- Menú offcanvas -->
       <div class="offcanvas offcanvas-start bg-dark text-white-lg-none d-lg-flex d-block w-100"
-           tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+           tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel" #offcanvasNavbar>
         <div class="offcanvas-header d-lg-none">
           <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
@@ -21,14 +20,14 @@
         </div>
         <div class="offcanvas-body">
           <ul class="navbar-nav gap-3 text-white ms-auto text-lg-start text-center">
-            <li class="nav-item"><a class="nav-link text-white" href="#">Create</a></li>
-            <li class="nav-item"><a class="nav-link text-white" href="#">Library</a></li>
-            <li class="nav-item"><a class="nav-link text-white" [routerLink]="'/pricing'">Pricing</a></li>
+            <li class="nav-item"><a class="nav-link text-white" (click)="closeMenu()" routerLink="/create">Create</a></li>
+            <li class="nav-item"><a class="nav-link text-white" (click)="closeMenu()" routerLink="/library">Library</a></li>
+            <li class="nav-item"><a class="nav-link text-white" (click)="closeMenu()" routerLink="/pricing">Pricing</a></li>
             <li class="nav-item">
-              <a class="btn btn-outline-light" [routerLink]="'/login'">Log in</a>
+              <a class="btn btn-outline-light" (click)="closeMenu()" routerLink="/login">Log in</a>
             </li>
             <li class="nav-item">
-              <a class="btn btn-secondary text-white" [routerLink]="'/register'">Start Free Now</a>
+              <a class="btn btn-secondary text-white" (click)="closeMenu()" routerLink="/register">Start Free Now</a>
             </li>
           </ul>
         </div>
