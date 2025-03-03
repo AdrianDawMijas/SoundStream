@@ -1,61 +1,130 @@
-<body>
-<div class="d-flex">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <div class="d-flex w-100">
-      <button class="btn btn-light flex-grow-1 option-btn me-1">Generator</button>
-      <button class="btn btn-dark flex-grow-1 option-btn">Text to Music</button>
-    </div>
-    <div class="genre-container mt-4">
-      <div class="genre-icons">
-        <div class="icon-button">🎵</div>
-        <div class="icon-button">➕</div>
-        <div class="icon-button">➕</div>
-        <div class="icon-button">➕</div>
-        <div class="icon-button">➕</div>
-        <div class="icon-button">➕</div>
+<div class="container-xl pt-4 mt-4">
+  <div class="row">
+    <!-- Sidebar (aumentamos ancho de 4 a 5 en lg, y de 5 a 6 en md) -->
+    <div class="col-md-4 col-12 sidebar d-flex flex-column text-white p-4 border-end border-white">
+
+      <!-- Botones de selección -->
+      <div class="d-flex w-100 mb-3">
+        <button class="btn flex-grow-1 fw-bold"
+                [class.btn-light]="activeTab === 'generator'"
+                [class.btn-dark]="activeTab !== 'generator'"
+                (click)="setActiveTab('generator')">
+          Generator
+        </button>
+        <button class="btn flex-grow-1 fw-bold"
+                [class.btn-light]="activeTab === 'text-to-music'"
+                [class.btn-dark]="activeTab !== 'text-to-music'"
+                (click)="setActiveTab('text-to-music')">
+          Text to Music
+        </button>
       </div>
-      <div class="genre-selection w-100">
-        <h5 class="text-white">Genre</h5>
-        <div class="genre-card mb-3">
-          <div class="d-flex align-items-center">
-            <img src="rock-icon.png" alt="Rock" width="40" class="me-2">
-            <select class="form-select bg-dark text-white">
-              <option selected>Rock</option>
-              <option>Pop</option>
-              <option>Jazz</option>
-            </select>
-          </div>
-          <div class="mt-2">
-            <span class="subgenre-tags">Indie Rock</span>
-            <span class="subgenre-tags">Pop Rock</span>
-            <span class="subgenre-tags">Metal</span>
+
+      <!-- Contenido de Generator -->
+      <div *ngIf="activeTab === 'generator'">
+        <div class="genre-container mt-4 w-100 pb-3">
+          <div class="row w-100">
+            <div class="col-4 d-flex flex-column align-items-center gap-3">
+              <div class="text-center">
+                <button class="btn btn-light rounded-circle d-flex align-items-center justify-content-center border border-white"
+                        style="width: 50px; height: 50px; font-size: 1.1rem;">
+                  <i class="fas fa-music"></i>
+                </button>
+                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Genre</p>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
+                        style="width: 50px; height: 50px; font-size: 1.1rem;">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Structure</p>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
+                        style="width: 50px; height: 50px; font-size: 1.1rem;">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Duration</p>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
+                        style="width: 50px; height: 50px; font-size: 1.1rem;">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Energy</p>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
+                        style="width: 50px; height: 50px; font-size: 1.1rem;">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Tempo</p>
+              </div>
+              <div class="text-center">
+                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
+                        style="width: 50px; height: 50px; font-size: 1.1rem;">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Gear</p>
+              </div>
+            </div>
+
+            <div class="col-8 d-flex flex-column">
+              <div class="card bg-dark text-white p-3 rounded">
+                <label class="text-muted mb-1">Genre</label>
+                <div class="d-flex align-items-center p-2 bg-body-tertiary rounded">
+                  <div class="d-flex align-items-center justify-content-center me-3"
+                       style="width: 40px; height: 40px; border-radius: 8px;">
+                    <i class="fa-solid fa-music text-dark fs-5"></i>
+                  </div>
+                  <select class="form-select bg-dark text-white fw-bold w-100">
+                    <option value="rock" selected>Rock</option>
+                    <option value="pop">Pop</option>
+                    <option value="jazz">Jazz</option>
+                    <option value="hiphop">Hip Hop</option>
+                    <option value="classical">Classical</option>
+                  </select>
+                </div>
+                <button class="btn btn-primary mt-3 fw-bold w-100">Generate</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <button class="btn btn-primary">Generate</button>
-  </div>
 
-  <!-- Main Content -->
-  <div class="content">
-    <h2 class="fw-bold">AI Music Generator</h2>
-    <p>Create your music in seconds</p>
-    <div class="separator"></div>
-    <div class="row">
-      <div class="col-md-4">
-        <h5>🎵 Build Your Song</h5>
-        <p>Select genre and other options to make your music unique</p>
+      <!-- Contenido de Text to Music -->
+      <div *ngIf="activeTab === 'text-to-music'">
+        <div class="text-center">
+          <textarea class="form-control bg-dark text-white p-3"
+                    rows="4" maxlength="250"
+                    placeholder="Describe your music idea..."></textarea>
+          <p class="text-muted text-end">0/250</p>
+          <button class="btn btn-primary w-100 fw-bold">Generate</button>
+        </div>
       </div>
-      <div class="col-md-4">
-        <h5>🎼 Generate Tracks</h5>
-        <p>Select genre and other options to make your music unique</p>
-      </div>
-      <div class="col-md-4">
-        <h5>💾 Save and Download</h5>
-        <p>Select genre and other options to make your music unique</p>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="col-md-8 col-12 content p-4 text-white">
+      <h2 class="fw-bold text-center text-lg-center">AI Music Generator</h2>
+      <p class="text-center text-lg-center">Create your music in seconds</p>
+      <hr class="border-secondary">
+
+      <div class="row text-center">
+        <div class="col-md-4 mb-3">
+          <h5>🎵 Build Your Song</h5>
+          <p>Select genre and other options to make your music unique</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>🎼 Generate Tracks</h5>
+          <p>Select genre and other options to make your music unique</p>
+        </div>
+        <div class="col-md-4 mb-3">
+          <h5>💾 Save and Download</h5>
+          <p>Select genre and other options to make your music unique</p>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
-</body>

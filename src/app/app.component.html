@@ -1,4 +1,8 @@
-<body class="bg-primary-gradient d-flex flex-column">
+<body [class.bg-primary-gradient]="!isMusicRoute()"
+      [class.bg-dark]="isMusicRoute()"
+      class="d-flex flex-column">
+
+
 <div class="d-flex flex-column min-vh-100">
   <!-- Header -->
   <app-header class="position-relative z-3"></app-header>
@@ -9,7 +13,7 @@
   </main>
 
   <!-- Footer -->
-  <app-footer class="bg-dark text-white text-center position-relative z-3 "></app-footer>
+  <app-footer *ngIf="!isMusicRoute()" class="bg-dark text-white text-center position-relative z-3"></app-footer>
 </div>
 
 </body>

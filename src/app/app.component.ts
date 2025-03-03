@@ -1,15 +1,25 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent} from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-
+import {Router, RouterOutlet} from '@angular/router';
+import {HeaderComponent} from './header/header.component';
+import {FooterComponent} from './footer/footer.component';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, FooterComponent, HeaderComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [
+    HeaderComponent,
+    RouterOutlet,
+    FooterComponent,
+    NgIf
+  ],
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'SoundStream';
+  constructor(private router: Router) {}
+
+  // Función para verificar si estamos en la ruta 'music'
+  isMusicRoute(): boolean {
+    return this.router.url.includes('/music');
+  }
 }
