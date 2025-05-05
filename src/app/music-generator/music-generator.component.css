@@ -18,3 +18,116 @@
   height: 40px;
   font-size: 16px;
 }
+
+.sidebar-button {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.circular-button {
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.scroll-panel-container {
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 1rem;
+  margin-right: 0;
+  max-height: unset;
+}
+
+/* ✅ SCROLLBAR MODERNO: flotante, no ocupa espacio */
+.scrollable-panel {
+  height: 80vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-gutter: stable overlay; /* Firefox */
+}
+
+.scrollable-panel::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollable-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollable-panel::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 6px;
+}
+
+.fade-in {
+  animation: fadeIn ease 1s;
+  -webkit-animation: fadeIn ease 1s;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.invisible {
+  visibility: hidden;
+  height: auto;
+}
+
+.generated-card {
+  transition: all 0.3s ease-in-out;
+  background-color: #1c1c1c;
+  border: none;
+}
+
+.generated-card:hover {
+  transform: scale(1.01);
+}
+
+/* 🎧 Custom Audio Player */
+.custom-audio-player {
+  width: 100%;
+}
+
+.progress-container {
+  width: 100%;
+  height: 6px;
+  background-color: #333;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #00ffcc;
+  transition: width 0.1s ease;
+}
+
+.controls button {
+  min-width: 40px;
+  font-size: 1rem;
+}
+.relative-wrapper {
+  position: relative;
+  min-height: 280px;
+}
+
+.overlay-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+}

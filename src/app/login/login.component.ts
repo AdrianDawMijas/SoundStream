@@ -1,20 +1,38 @@
 import { Component } from '@angular/core';
-import {NgClass} from '@angular/common';
-import {RouterLink} from '@angular/router';
+import { AuthService } from '../service/auth.service';
+import {Router, RouterLink} from '@angular/router';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   imports: [
-    NgClass,
+    FormsModule,
     RouterLink
   ],
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  showPassword: boolean = false;
+  email = '';
+  password = '';
+  showPassword = false;
+
+  constructor(private authService: AuthService, private router: Router) {}
 
   togglePassword() {
     this.showPassword = !this.showPassword;
+  }
+
+  onLogin() {
+    this.authService.login(this.email, this.password).subscribe({
+      next: (response) => {
+        console.log('Login correcto', response);
+        // Podrías guardar el user en localStorage
+        this.router.navigate(['/home']);
+      },
+      error: () => {
+        alert('Credenciales incorrectas');
+      }
+    });
   }
 }

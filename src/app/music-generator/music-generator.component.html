@@ -1,9 +1,9 @@
 <div class="container-xl pt-4 mt-4">
   <div class="row">
-    <!-- Sidebar (aumentamos ancho de 4 a 5 en lg, y de 5 a 6 en md) -->
-    <div class="col-md-4 col-12 sidebar d-flex flex-column text-white p-4 border-end border-white">
+    <!-- Sidebar y pestañas -->
+    <div class="col-12 col-md-4 text-white p-4 border-end border-white d-flex flex-column">
 
-      <!-- Botones de selección -->
+      <!-- Tabs -->
       <div class="d-flex w-100 mb-3">
         <button class="btn flex-grow-1 fw-bold"
                 [class.btn-light]="activeTab === 'generator'"
@@ -19,112 +19,144 @@
         </button>
       </div>
 
-      <!-- Contenido de Generator -->
+      <!-- Generator view -->
       <div *ngIf="activeTab === 'generator'">
-        <div class="genre-container mt-4 w-100 pb-3">
-          <div class="row w-100">
-            <div class="col-4 d-flex flex-column align-items-center gap-3">
-              <div class="text-center">
-                <button class="btn btn-light rounded-circle d-flex align-items-center justify-content-center border border-white"
-                        style="width: 50px; height: 50px; font-size: 1.1rem;">
-                  <i class="fas fa-music"></i>
-                </button>
-                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Genre</p>
-              </div>
-              <div class="text-center">
-                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
-                        style="width: 50px; height: 50px; font-size: 1.1rem;">
-                  <i class="fas fa-plus"></i>
-                </button>
-                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Structure</p>
-              </div>
-              <div class="text-center">
-                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
-                        style="width: 50px; height: 50px; font-size: 1.1rem;">
-                  <i class="fas fa-plus"></i>
-                </button>
-                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Duration</p>
-              </div>
-              <div class="text-center">
-                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
-                        style="width: 50px; height: 50px; font-size: 1.1rem;">
-                  <i class="fas fa-plus"></i>
-                </button>
-                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Energy</p>
-              </div>
-              <div class="text-center">
-                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
-                        style="width: 50px; height: 50px; font-size: 1.1rem;">
-                  <i class="fas fa-plus"></i>
-                </button>
-                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Tempo</p>
-              </div>
-              <div class="text-center">
-                <button class="btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center border border-white"
-                        style="width: 50px; height: 50px; font-size: 1.1rem;">
-                  <i class="fas fa-plus"></i>
-                </button>
-                <p class="mt-2 mb-0 fw-semibold text-truncate" style="max-width: 70px; font-size: 0.85rem;">Gear</p>
-              </div>
+        <div class="row w-100">
+          <div class="col-12 col-lg-4 d-flex flex-column gap-3 mb-4 mb-lg-0">
+            <div *ngFor="let section of ['genre', 'structure', 'duration', 'tempo', 'gear']"
+                 class="sidebar-button text-center">
+              <button class="btn circular-button"
+                      style="width: 50px; height: 50px;"
+                      (click)="toggleSection(section)"
+                      [ngClass]="{
+                        'btn-light': isActive(section),
+                        'btn-outline-light': !isActive(section)
+                      }">
+                <i class="fas fa-plus"></i>
+              </button>
+              <p class="mt-2 mb-0 fw-semibold text-truncate"
+                 style="max-width: 70px; font-size: 0.85rem; text-transform: capitalize;">
+                {{ section }}
+              </p>
             </div>
+          </div>
 
-            <div class="col-8 d-flex flex-column">
-              <div class="card bg-dark text-white p-3 rounded">
-                <label class="text-muted mb-1">Genre</label>
-                <div class="d-flex align-items-center p-2 bg-body-tertiary rounded">
-                  <div class="d-flex align-items-center justify-content-center me-3"
-                       style="width: 40px; height: 40px; border-radius: 8px;">
-                    <i class="fa-solid fa-music text-dark fs-5"></i>
-                  </div>
-                  <select class="form-select bg-dark text-white fw-bold w-100">
-                    <option value="rock" selected>Rock</option>
-                    <option value="pop">Pop</option>
-                    <option value="jazz">Jazz</option>
-                    <option value="hiphop">Hip Hop</option>
-                    <option value="classical">Classical</option>
-                  </select>
-                </div>
-                <button class="btn btn-primary mt-3 fw-bold w-100">Generate</button>
+          <div class="col-12 col-lg-8 d-flex flex-column scrollable-panel">
+            <div class="card bg-dark text-white p-3 rounded d-flex flex-column flex-grow-1" style="min-height: 100%;">
+              <div class="flex-grow-1">
+                <app-genre-panel></app-genre-panel>
+                <hr class="border-white my-2" *ngIf="isActive('structure')">
+                <app-structure-panel *ngIf="isActive('structure')"></app-structure-panel>
+                <hr class="border-white my-2" *ngIf="isActive('duration')">
+                <app-duration-panel *ngIf="isActive('duration')"></app-duration-panel>
+                <hr class="border-white my-2" *ngIf="isActive('tempo')">
+                <app-tempo-panel *ngIf="isActive('tempo')"></app-tempo-panel>
+                <hr class="border-white my-2" *ngIf="isActive('gear')">
+                <app-gear-panel *ngIf="isActive('gear')"></app-gear-panel>
+              </div>
+              <div class="mt-3">
+                <button class="btn btn-primary fw-bold w-100" (click)="generateSong()">Generate</button>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Contenido de Text to Music -->
+      <!-- Text to Music view -->
       <div *ngIf="activeTab === 'text-to-music'">
         <div class="text-center">
           <textarea class="form-control bg-dark text-white p-3"
+                    [(ngModel)]="textPrompt"
                     rows="4" maxlength="250"
                     placeholder="Describe your music idea..."></textarea>
-          <p class="text-muted text-end">0/250</p>
-          <button class="btn btn-primary w-100 fw-bold">Generate</button>
+          <p class="text-muted text-end text-right">{{ textPrompt.length }}/250</p>
+          <button class="btn btn-primary w-100 fw-bold" (click)="generateFromTextPrompt()">Generate</button>
         </div>
       </div>
 
     </div>
 
-    <!-- Main Content -->
-    <div class="col-md-8 col-12 content p-4 text-white">
-      <h2 class="fw-bold text-center text-lg-center">AI Music Generator</h2>
-      <p class="text-center text-lg-center">Create your music in seconds</p>
+    <!-- Main content -->
+    <div class="col-12 col-md-8 content p-4 text-white">
+      <h2 class="fw-bold text-center">AI Music Generator</h2>
+      <p class="text-center">Create your music in seconds</p>
       <hr class="border-secondary">
 
-      <div class="row text-center">
-        <div class="col-md-4 mb-3">
-          <h5>🎵 Build Your Song</h5>
-          <p>Select genre and other options to make your music unique</p>
+      <div class="relative-wrapper">
+        <!-- Pasos (siempre ocupan espacio; solo invisibles en text-to-music con resultado/generación) -->
+        <div class="row text-center"
+             [class.invisible]="activeTab === 'text-to-music' && (isGenerating || generatedSong)">
+          <div class="col-md-4 mb-3">
+            <h5>🎵 Build Your Song</h5>
+            <p>Select genre and other options to make your music unique</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <h5>🎼 Generate Tracks</h5>
+            <p>Select genre and other options to make your music unique</p>
+          </div>
+          <div class="col-md-4 mb-3">
+            <h5>💾 Save and Download</h5>
+            <p>Select genre and other options to make your music unique</p>
+          </div>
         </div>
-        <div class="col-md-4 mb-3">
-          <h5>🎼 Generate Tracks</h5>
-          <p>Select genre and other options to make your music unique</p>
+
+        <!-- Spinner -->
+        <div *ngIf="isGenerating" class="text-center my-5 fade-in">
+          <div class="spinner-border text-success" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+          <p class="mt-3">🎧 Generating your music... Please wait</p>
         </div>
-        <div class="col-md-4 mb-3">
-          <h5>💾 Save and Download</h5>
-          <p>Select genre and other options to make your music unique</p>
+
+        <!-- Canción generada -->
+        <div *ngIf="generatedSong"
+             class="generated-card card text-white bg-dark p-4 rounded-4 shadow-lg"
+             [ngClass]="{
+               'mt-4': activeTab === 'generator',
+               'overlay-card': activeTab === 'text-to-music'
+             }">
+          <div class="d-flex align-items-center mb-3">
+            <img
+              [src]="'assets/img/genres/' + (generatedSong.genre?.name?.toLowerCase() || 'default') + '.jpg'"
+              class="rounded-3 me-3"
+              style="width: 120px; height: 120px; object-fit: cover;"
+              alt="Genre image">
+            <div class="flex-grow-1">
+              <h4 class="mb-1 fw-bold">{{ generatedSong.title || generatedSong.genre?.name || 'Unknown' }}</h4>
+              <small class="text-muted">{{ generatedSong.genre?.name }}</small>
+              <div class="d-flex flex-wrap gap-2 mb-2">
+                <span class="badge bg-secondary">{{ generatedSong.subgenre?.name || 'No subgenre' }}</span>
+                <span class="badge bg-secondary">{{ generatedSong.duration || '30s' }}</span>
+              </div>
+              <div class="d-flex gap-2">
+                <a [href]="generatedSong.generatedUrl" download class="btn btn-outline-light btn-sm">⬇ Download</a>
+                <button class="btn btn-outline-light btn-sm">🤍 Add</button>
+                <button class="btn btn-outline-light btn-sm">🔗 Share</button>
+              </div>
+            </div>
+          </div>
+
+          <audio #audioPlayer
+                 [src]="generatedSong.generatedUrl"
+                 (timeupdate)="updateProgress(audioPlayer)"
+                 (loadedmetadata)="setDuration(audioPlayer)"></audio>
+
+          <div class="custom-audio-player mt-3 d-flex align-items-center gap-3">
+            <button class="btn btn-sm btn-dark border-white text-white" (click)="togglePlay(audioPlayer)">
+              <i class="fas" [ngClass]="isPlaying ? 'fa-pause' : 'fa-play'"></i>
+            </button>
+            <input
+              type="range"
+              class="form-range flex-grow-1"
+              min="0"
+              [max]="durationSeconds"
+              [value]="currentSeconds"
+              (input)="seekTo($event, audioPlayer)"
+              style="accent-color: #00e1c6;" />
+            <span class="text-muted small" style="width: 80px;">{{ currentTime }} / {{ duration }}</span>
+          </div>
         </div>
       </div>
     </div>
-
   </div>
 </div>

@@ -1,47 +1,30 @@
-// 1. Importa solo funciones primero// 1. Importa solo funciones primero
+// 1. Importa solo funciones primero
 @import "../../../node_modules/bootstrap/scss/functions";
 
+// 2. Sobrescribe variables ANTES de importar el resto
+$primary: #00c9a7;
+$secondary: #b184f5;
 
-// 2. Sobrescribe variables antes de importar `variables`
-$primary: #00c9a7; // Cambia el color principal
-$secondary: #b184f5; // Cambia color secundario
-
-$font-family-sans-serif: 'Roboto', sans-serif !default; // Cambiar fuente a roboto
+$font-family-sans-serif: 'Roboto', sans-serif !default;
 $font-family-base: $font-family-sans-serif;
 
-.bg-primary-gradient {
-  background: linear-gradient(to right, #437DDF, #40D8AB) !important;
-}
-
-
-
-@import "../../../node_modules/bootstrap/scss/variables";
-
-//futhermore it's necesary override the $theme-colors
-
+// Personalización adicional
 $theme-colors: (
   "primary":    $primary,
   "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
+  "success":    #198754,
+  "info":       #0dcaf0,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      #f8f9fa,
+  "dark":       #212529
 );
 
+// 3. Importa variables y Bootstrap después
+@import "../../../node_modules/bootstrap/scss/variables";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
 
-@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
-@import "../../../node_modules/bootstrap/scss/functions";
-
-
-// 2. Sobrescribe variables antes de importar `variables`
-$primary: #00c9a7; // Cambia el color principal
-$secondary: #b184f5; // Cambia color secundario
-
-$font-family-sans-serif: 'Roboto', sans-serif !default; // Cambiar fuente a roboto
-$font-family-base: $font-family-sans-serif;
-
+// 4. Tus clases personalizadas (deberían ir aquí o en un archivo separado)
 .bg-primary-gradient {
   background: linear-gradient(to right, #437DDF, #40D8AB) !important;
 }
@@ -49,30 +32,9 @@ $font-family-base: $font-family-sans-serif;
 .form-control::placeholder {
   color: grey !important;
   opacity: 1;
-  font-size: 14px; /* Ajusta el tamaño según lo necesites */
+  font-size: 14px;
 }
 
 .bg-dark .form-control::placeholder {
   color: grey !important;
 }
-
-
-
-
-@import "../../../node_modules/bootstrap/scss/variables";
-
-//futhermore it's necesary override the $theme-colors
-
-$theme-colors: (
-  "primary":    $primary,
-  "secondary":  $secondary,
-  "success":    $success,
-  "info":       $info,
-  "warning":    $warning,
-  "danger":     $danger,
-  "light":      $light,
-  "dark":       $dark
-);
-
-
-@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
