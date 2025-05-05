@@ -1,0 +1,21 @@
+.btn-sm {
+  font-size: 0.8rem;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.panel-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.gear-row {
+  width: 100%;
+  border-radius: 0.5rem;
+  overflow: hidden; /* evita que el contenido sobresalga */
+}
+

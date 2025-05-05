@@ -1,0 +1,25 @@
+.btn-check:checked + .btn,
+.btn.active {
+  background-color: #00ffd0;
+  color: black;
+  font-weight: bold;
+  border-color: #00ffd0;
+}
+
+.btn {
+  border-radius: 20px;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.panel-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+

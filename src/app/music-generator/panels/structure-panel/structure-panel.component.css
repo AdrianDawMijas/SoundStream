@@ -1,0 +1,41 @@
+.structure-box {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  padding: 10px 12px;
+  width: 100%; /* Ocupa toda la fila */
+  min-height: 60px; /* Altura mayor para mejor presencia */
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.structure-box.selected {
+  border: 2px solid white;
+}
+
+.structure-box:hover {
+  background-color: #2c2c2c;
+  transform: scale(1.02);
+  transition: all 0.2s ease-in-out;
+}
+
+.bar {
+  background: linear-gradient(to top, #00ffe0, #007cf0);
+  border-radius: 2px;
+  width: 3px;
+  margin: 0 1px;
+}
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.panel-container {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+

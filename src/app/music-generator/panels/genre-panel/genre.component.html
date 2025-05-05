@@ -1,0 +1,43 @@
+<div class="panel-container genre-panel text-white p-0">
+  <h6 class="fw-bold mb-3">Genre</h6>
+
+  <!-- Dropdown personalizado -->
+  <div class="position-relative mb-4">
+    <button
+      (click)="toggleDropdown()"
+      class="w-100 d-flex align-items-center justify-content-between p-2 border border-light rounded bg-transparent text-white"
+    >
+      <div class="d-flex align-items-center">
+        <i [class]="genreIcons[selectedGenre] + ' me-2'" style="font-size: 15px;"></i>
+        <span class="fw-bold fs-6">{{ selectedGenre }}</span>
+      </div>
+      <i class="fas fa-chevron-down ms-2"></i>
+    </button>
+
+    <!-- Menú visible -->
+    <ul *ngIf="showDropdown"
+        class="dropdown-menu-custom position-absolute mt-2 w-100">
+      <li
+        *ngFor="let genre of genreList"
+        class="dropdown-item d-flex align-items-center gap-2 px-3 py-2"
+        (click)="selectGenre(genre); toggleDropdown()"
+      >
+        <i [class]="genreIcons[genre]"></i> {{ genre }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Subgéneros -->
+  <h6 class="fw-bold text-white mb-2">Subgenres</h6>
+  <div class="d-flex flex-wrap gap-2">
+    <button
+      *ngFor="let sub of subGenres[selectedGenre]"
+      class="subgenre-button btn btn-sm rounded-pill px-3 py-1"
+      [class.active]="selectedSubGenres.includes(sub)"
+      (click)="toggleSubGenre(sub)"
+    >
+      {{ sub }}
+    </button>
+  </div>
+</div>
+
