@@ -1,23 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
-import {Router, RouterLink} from '@angular/router';
-import {FormsModule} from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
+
+declare const google: any;
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   imports: [
     FormsModule,
-    RouterLink
-  ],
-  styleUrls: ['./login.component.scss']
+    RouterLink,
+    NgClass
+  ]
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
   email = '';
   password = '';
   showPassword = false;
 
   constructor(private authService: AuthService, private router: Router) {}
+
+  ngAfterViewInit(): void {
+    google.accounts.id.initialize({
+      client_id: '1056065714806-qnno38lp4gh2lvnmthnufkcpibd7m5tj.apps.googleusercontent.com', // ← reemplaza esto con tu client ID real
+      callback: this.handleCredentialResponse.bind(this)
+    });
+
+    google.accounts.id.renderButton(
+      document.getElementById('google-button'),
+      {
+        theme: 'outline',
+        size: 'large',
+        shape: 'pill',
+        width: '100%'
+      }
+    );
+  }
+
+  handleCredentialResponse(response: any) {
+    const token = response.credential;
+    console.log('Token recibido de Google:', token);
+
+    this.authService.loginWithGoogleToken(token).subscribe({
+      next: () => {
+        console.log('Login con Google exitoso');
+        this.authService.loginUser(response);
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        alert('Fallo al iniciar sesión con Google');
+      }
+    });
+  }
 
   togglePassword() {
     this.showPassword = !this.showPassword;
@@ -25,14 +63,16 @@ export class LoginComponent {
 
   onLogin() {
     this.authService.login(this.email, this.password).subscribe({
-      next: (response) => {
-        console.log('Login correcto', response);
-        // Podrías guardar el user en localStorage
-        this.router.navigate(['/home']);
+      next: (res) => {
+        console.log('Login clásico exitoso');
+        localStorage.setItem('user', JSON.stringify(res)); // <- Guardar sesión
+        this.authService.loginUser(res); // <- Actualizar estado de login
+        this.router.navigate(['/']); // <- Redirigir al landing
       },
       error: () => {
         alert('Credenciales incorrectas');
       }
     });
   }
+
 }

@@ -16,10 +16,15 @@ import {NgIf} from '@angular/common';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+  }
 
   // Función para verificar si estamos en la ruta 'music'
   isMusicRoute(): boolean {
     return this.router.url.includes('/music');
+  }
+
+  hideFooterRoutes(): boolean {
+    return this.router.url.includes('/music') || this.router.url.includes('/library');
   }
 }

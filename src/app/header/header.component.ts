@@ -1,42 +1,61 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import {Router, NavigationEnd, RouterLink} from '@angular/router';
-import { Offcanvas } from 'bootstrap';
-import { filter } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import {NgClass, NgIf} from '@angular/common';
+import { AuthService } from '../service/auth.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
+  standalone: true,
+  imports: [RouterLink, NgIf, NgClass],
   templateUrl: './header.component.html',
-  imports: [
-    RouterLink
-  ],
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements AfterViewInit {
-  @ViewChild('offcanvasNavbar', { static: false }) offcanvasNavbar!: ElementRef;
-  offcanvasInstance: Offcanvas | null = null;
+export class HeaderComponent implements OnInit, OnDestroy {
 
-  constructor(private router: Router) {
-    // Escuchar cambios de ruta y cerrar el offcanvas cuando cambia la página
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.closeMenu();
-      });
+  loggedIn = false;
+  userName: string = '';
+  isAdmin = false;
+  private loginSub!: Subscription;
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.loginSub = this.authService.isLoggedIn$.subscribe(isLogged => {
+      this.loggedIn = isLogged;
+
+      const storedUser = localStorage.getItem('user');
+      if (isLogged && storedUser) {
+        try {
+          const user = JSON.parse(storedUser);
+          this.userName = user.nombre || user.email || 'User';
+
+          // ✅ Verificación admin (por nombre o email)
+          this.isAdmin = user.email === 'admin@admin.com' || user.nombre?.toLowerCase() === 'admin';
+        } catch (e) {
+          this.userName = 'User';
+          this.isAdmin = false;
+        }
+      } else {
+        this.userName = '';
+        this.isAdmin = false;
+      }
+    });
   }
 
-  ngAfterViewInit() {
-    if (this.offcanvasNavbar) {
-      this.offcanvasInstance = new Offcanvas(this.offcanvasNavbar.nativeElement);
-    }
+  logout(): void {
+    this.authService.logoutUser();
+    this.router.navigate(['/']);
   }
 
-  closeMenu() {
-    if (this.offcanvasInstance) {
-      this.offcanvasInstance.hide(); // Cierra el menú
-    }
+  ngOnDestroy(): void {
+    this.loginSub?.unsubscribe();
+  }
 
-    // Asegurarse de que el menú desaparezca completamente
-    document.body.classList.remove('offcanvas-open'); // Limpia la clase que oscurece la pantalla
-    document.querySelectorAll('.offcanvas-backdrop').forEach(backdrop => backdrop.remove()); // Elimina el fondo oscuro
+  closeMenu(): void {
+    const offcanvas = document.querySelector('#offcanvasNavbar');
+    if (offcanvas && (offcanvas as any).classList.contains('show')) {
+      (window as any).bootstrap?.Offcanvas.getInstance(offcanvas)?.hide();
+    }
   }
 }

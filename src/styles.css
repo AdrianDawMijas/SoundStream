@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* Oculta scroll horizontal */
+}
+
+/* Fuerza que el layout ocupe toda la pantalla */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Asegura que el main crezca y el footer se pegue abajo */
+main {
+  flex: 1;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Previene scroll horizontal */
+  overflow-y: auto;   /* Solo muestra scroll vertical si es necesario */
+  height: 100%;
+}

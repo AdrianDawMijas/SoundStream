@@ -49,7 +49,7 @@
 
 /* ✅ SCROLLBAR MODERNO: flotante, no ocupa espacio */
 .scrollable-panel {
-  height: 80vh;
+  height: 60vh;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;

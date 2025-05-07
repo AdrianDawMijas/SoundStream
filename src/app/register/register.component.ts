@@ -1,40 +1,61 @@
 import { Component } from '@angular/core';
-import {NgClass} from '@angular/common';
-import {Router, RouterLink} from '@angular/router';
-import {AuthService} from '../service/auth.service';
-import {FormsModule} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-register',
-  imports: [
-    NgClass,
-    RouterLink,
-    FormsModule
-  ],
+  standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
-  showPassword: boolean = false;
-  email = '';
-  password = '';
-  togglePassword() {
+  registerForm: FormGroup;
+  showPassword = false;
+
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
+    this.registerForm = this.fb.group({
+      nombre: ['', [Validators.required, Validators.minLength(2)]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      repeatPassword: ['', [Validators.required]]
+    }, { validators: this.passwordsMatch });
+  }
+
+  togglePassword(): void {
     this.showPassword = !this.showPassword;
   }
-  constructor(private authService: AuthService, private router: Router) {
+
+  passwordsMatch(form: AbstractControl) {
+    const pass = form.get('password')?.value;
+    const repeat = form.get('repeatPassword')?.value;
+    return pass === repeat ? null : { mismatch: true };
   }
 
-  onRegister() {
-    this.authService.register(this.email, this.password).subscribe({
-      next: (response) => {
-        console.log('Registro correcto', response);
-        // Podrías guardar el user en localStorage
-        this.router.navigate(['/home']);
-      },
-      error: () => {
-        alert('Credenciales incorrectas');
-      }
-    });
-  }
+  onSubmit(): void {
+    if (this.registerForm.valid) {
+      const { nombre, email, password } = this.registerForm.value;
+
+      // Aquí pasas nombre también
+      this.authService.register(nombre, email, password).subscribe({
+        next: (res) => {
+          console.log('Registro correcto:', res);
+          this.authService.loginUser(res);
+
+          this.router.navigate(['/']);
+        },
+        error: () => {
+          alert('Error al registrar. ¿Correo ya usado?');
+        }
+      });
+    } else {
+      this.registerForm.markAllAsTouched();
+    }
   }
 
+  get f() {
+    return this.registerForm.controls;
+  }
+}

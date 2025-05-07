@@ -1,49 +1,56 @@
 <div class="container-xl text-center mt-5 p-4">
-
-  <!-- Contenedor del formulario de login -->
   <div class="login-box mx-auto p-4 rounded shadow bg-dark">
     <h4 class="text-white fw-bold">Create Account</h4>
-    <p class="text-white-50 small">Alredy have account? <a [routerLink]="'/login'" class="text-primary">Log In</a></p>
+    <p class="text-white-50 small">
+      Already have an account? <a [routerLink]="'/login'" class="text-primary">Log In</a>
+    </p>
 
-    <!-- Botón de Google -->
-    <button class="btn btn-light w-100 mb-3">
-      <img src="./assets/img/icons8-google.svg" width="24" class="me-2">
-      Iniciar sesión con Google
-    </button>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Nombre -->
+      <div class="mb-3 text-start">
+        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre completo">
+        <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="text-danger small mt-1">
+          El nombre es obligatorio (mínimo 2 caracteres)
+        </div>
+      </div>
 
-    <!-- Separador "OR" con líneas a los lados usando Bootstrap -->
-    <div class="d-flex align-items-center text-white-50 my-2">
-      <hr class="flex-grow-1 border-text-white-50">
-      <span class="mx-2">OR</span>
-      <hr class="flex-grow-1 border-text-white-50">
-    </div>
+      <!-- Email -->
+      <div class="mb-3 text-start">
+        <input type="email" class="form-control" formControlName="email" placeholder="Correo electrónico">
+        <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">
+          <div *ngIf="f['email'].errors?.['required']">El correo es obligatorio.</div>
+          <div *ngIf="f['email'].errors?.['email']">El correo no es válido.</div>
+        </div>
+      </div>
 
-    <!-- Campo Email -->
-    <div class="mb-3">
-      <input type="email" [(ngModel)]="email" class="form-control bg-dark text-white border-1" placeholder="Ingrese usuario">
-    </div>
+      <!-- Contraseña -->
+      <div class="mb-3 text-start position-relative">
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password" placeholder="Contraseña">
+        <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger small mt-1">
+          La contraseña debe tener al menos 6 caracteres.
+        </div>
+      </div>
 
-    <!-- Campo Password con icono dentro -->
-    <div class="mb-3 position-relative">
-      <input
-        [type]="showPassword ? 'text' : 'password'"
-        [(ngModel)]="password"
-        class="form-control bg-dark text-white border-1 password-input pe-5"
-        placeholder="Ingrese contraseña"
-      >
-      <button type="button"
-              class="btn text-white position-absolute end-0 top-50 translate-middle-y me-2"
-              (click)="togglePassword()">
-        <i class="fas" [ngClass]="showPassword ? 'fa-eye' : 'fa-eye-slash'"></i>
+      <!-- Repetir contraseña -->
+      <div class="mb-3 text-start">
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="repeatPassword" placeholder="Repite contraseña">
+        <div *ngIf="registerForm.errors?.['mismatch'] && f['repeatPassword'].touched" class="text-danger small mt-1">
+          Las contraseñas no coinciden.
+        </div>
+      </div>
+
+      <!-- Mostrar contraseña toggle -->
+      <div class="form-check form-switch text-start mb-3">
+        <input class="form-check-input" type="checkbox" id="showPass" (change)="togglePassword()">
+        <label class="form-check-label text-white-50 small" for="showPass">Mostrar contraseña</label>
+      </div>
+
+      <!-- Botón de registro -->
+      <button class="btn btn-primary w-100 fw-bold shadow-sm" type="submit">
+        <i class="fas fa-user-plus me-2"></i> Start for free
       </button>
-    </div>
+    </form>
 
-
-    <!-- Botón de Login -->
-    <button class="btn btn-primary w-100 fw-bold shadow-sm" (click)="onRegister()">Start for free</button>
-
-
-    <!-- Enlace Forgot Password -->
-    <p class="text-white-50 mt-3">No credit card required</p>
+    <p class="text-white-50 mt-3">Generate all your favorite songs using AI</p>
   </div>
 </div>

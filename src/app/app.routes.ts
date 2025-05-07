@@ -5,13 +5,15 @@ import { LoginComponent } from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {PricingComponent} from './pricing/pricing.component';
 import {MusicGeneratorComponent} from './music-generator/music-generator.component';
+import {LibraryComponent} from './library/library.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent }, // Ruta raíz (Landing)
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'pricing', component: PricingComponent },
-  { path: 'music-generator', component: MusicGeneratorComponent}
+  { path: 'music-generator', component: MusicGeneratorComponent},
+  { path: 'library', component: LibraryComponent}
 ];
 
 @NgModule({
