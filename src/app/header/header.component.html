@@ -1,64 +1,77 @@
 <header class="bg-transparent w-100 position-relative z-3">
   <nav class="navbar navbar-expand-md navbar-light">
     <div class="container-xl">
+
+      <!-- Logo para vista móvil -->
       <a class="navbar-brand d-lg-none fw-bold fs-4 text-white" routerLink="/">SoundStream</a>
 
-      <!-- Botón Hamburguesa -->
+      <!-- Botón hamburguesa para activar el menú -->
       <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
               aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-white fs-3"></i>
       </button>
 
-      <!-- Menú Offcanvas -->
-      <div class="offcanvas offcanvas-start bg-dark text-white d-lg-flex d-block flex-grow-1 w-auto"
-           tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <!-- Menú offcanvas (responsive + escritorio) -->
+      <div class="offcanvas offcanvas-start bg-dark text-white w-100 h-100"
+           id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
-        <!-- Header del menú solo en móvil -->
+        <!-- Cabecera del menú (solo en móvil) -->
         <div class="offcanvas-header d-lg-none">
-          <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                  aria-label="Close"></button>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
 
-        <!-- Cuerpo del menú -->
+        <!-- Contenido del menú -->
         <div class="offcanvas-body">
+
+          <!-- Si el usuario está logueado -->
           <ng-container *ngIf="loggedIn; else notLoggedIn">
             <ul class="navbar-nav d-flex align-items-center gap-2 ms-auto">
+
               <li class="nav-item">
                 <a class="btn btn-outline-light" routerLink="/library" (click)="closeMenu()">Library</a>
               </li>
+
               <li class="nav-item">
                 <a class="btn btn-outline-light" routerLink="/music-generator" (click)="closeMenu()">Create</a>
               </li>
-              <li class="nav-item dropdown">
-                <a class="btn btn-outline-light dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" role="button">
-                  <i class="fas" [ngClass]="[isAdmin ? 'fa-gear text-white' : 'fa-user-circle text-white', 'fs-5', 'me-1']"></i>
+
+              <!-- Acceso a perfil con tooltip de logout -->
+              <li class="nav-item position-relative"
+                  (mouseenter)="showTooltip = true" (mouseleave)="showTooltip = false">
+                <a class="btn btn-outline-light d-flex align-items-center justify-content-center"
+                   routerLink="/profile">
+                  <i class="fas fs-5" [ngClass]="isAdmin ? 'fa-gear' : 'fa-user'"></i>
                 </a>
-                <ul class="dropdown-menu dropdown-menu-center">
-                  <li><a class="dropdown-item" (click)="logout()">Logout</a></li>
-                </ul>
+                <div class="custom-tooltip" [class.visible]="showTooltip" (click)="logout()">Logout</div>
               </li>
+
               <li class="nav-item">
                 <a class="btn btn-secondary text-white" routerLink="/pricing" (click)="closeMenu()">Upgrade</a>
               </li>
+
             </ul>
           </ng-container>
 
           <!-- Si NO está logueado -->
           <ng-template #notLoggedIn>
             <ul class="navbar-nav d-flex align-items-center gap-2 ms-auto">
+
               <li class="nav-item">
                 <a class="btn btn-outline-light" routerLink="/music-generator" (click)="closeMenu()">Create</a>
               </li>
+
               <li class="nav-item">
                 <a class="btn btn-outline-light" routerLink="/login" (click)="closeMenu()">Log in</a>
               </li>
+
               <li class="nav-item">
                 <a class="btn btn-secondary text-white" routerLink="/register" (click)="closeMenu()">Start Free Now</a>
               </li>
+
             </ul>
           </ng-template>
+
         </div>
       </div>
     </div>

@@ -6,10 +6,11 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app/app.routes';
 
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from '@abacritt/angularx-social-login';
+import { AuthInterceptor } from './app/service/auth.interceptor'; // 👈 Asegúrate de importar tu interceptor
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([AuthInterceptor])), // ✅ aquí va el interceptor
     provideRouter(routes),
     importProvidersFrom(SocialLoginModule),
     {

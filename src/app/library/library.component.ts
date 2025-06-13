@@ -12,67 +12,75 @@ interface SongWithState extends Song {
 @Component({
   selector: 'app-library',
   templateUrl: './library.component.html',
-  imports: [NgClass, NgForOf, NgIf, FormsModule],
-  styleUrls: ['./library.component.css']
+  styleUrls: ['./library.component.css'],
+  standalone: true,
+  imports: [NgClass, NgForOf, NgIf, FormsModule]
 })
 export class LibraryComponent implements OnInit {
+
   songs: SongWithState[] = [];
   filteredSongs: SongWithState[] = [];
 
-  // Estado general
   currentUserId = 0;
   isAdmin = false;
+
   currentAudio: HTMLAudioElement | null = null;
   currentSong: SongWithState | null = null;
 
-  // Filtros
   filterTitle = '';
   selectedDuration = 180;
   selectedGenre = '';
   selectedInstrument = '';
   selectedTempo = '';
 
-  // Opciones dinámicas
   genreOptions: string[] = [];
   instrumentOptions: string[] = [];
   tempoOptions: string[] = [];
 
-  // Paginación
   currentPage = 1;
   pageSize = 5;
 
-  constructor(private playlistService: PlaylistService, private authService: AuthService) {}
+  constructor(
+    private playlistService: PlaylistService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
-    this.currentUserId = storedUser.id;
-    this.isAdmin = storedUser.email === 'admin@admin.com';
+    const user = this.authService.getCurrentUser();
+    this.currentUserId = user?.id ?? 0;
+    this.isAdmin = user?.role === 'ADMIN';
 
-    this.isAdmin ? this.fetchAllSongs() : this.fetchUserLibrary();
+    this.isAdmin ? this.fetchAllSongs() : this.fetchUserSongs();
   }
 
-  fetchUserLibrary(): void {
-    this.playlistService.getUserLibrary(this.currentUserId).subscribe({
-      next: (playlist) => {
-        this.songs = (playlist.songs || []).map(song => ({ ...song, playing: false }));
+  fetchUserSongs(): void {
+    this.playlistService.getSongsByUser(this.currentUserId).subscribe({
+      next: (songs) => {
+        this.songs = songs.map(s => ({
+          ...s,
+          playing: false,
+          genre: typeof s.genre === 'string' ? { name: s.genre } : s.genre
+        }));
         this.filteredSongs = [...this.songs];
         this.extractFilterOptions();
       },
-      error: () => {
-        console.warn('No playlist found, creating one...');
-        this.playlistService.createUserLibrary(this.currentUserId).subscribe();
-      }
+      error: (err) => console.error('Error al cargar canciones del usuario:', err)
     });
   }
 
   fetchAllSongs(): void {
-    fetch('http://localhost:8080/v1/api/songs')
-      .then(res => res.json())
-      .then((allSongs: Song[]) => {
-        this.songs = allSongs.map(song => ({ ...song, playing: false }));
+    this.playlistService.getAllSongs().subscribe({
+      next: (songs) => {
+        this.songs = songs.map(s => ({
+          ...s,
+          playing: false,
+          genre: typeof s.genre === 'string' ? { name: s.genre } : s.genre
+        }));
         this.filteredSongs = [...this.songs];
         this.extractFilterOptions();
-      });
+      },
+      error: (err) => console.error('Error al cargar todas las canciones:', err)
+    });
   }
 
   togglePlay(song: SongWithState): void {
@@ -80,6 +88,7 @@ export class LibraryComponent implements OnInit {
       this.currentAudio.pause();
       this.currentAudio = null;
       this.songs.forEach(s => s.playing = false);
+
       if (this.currentSong?.id === song.id) {
         this.currentSong = null;
         return;
@@ -107,14 +116,23 @@ export class LibraryComponent implements OnInit {
       : parseInt(str, 10);
   }
 
+
   applyFilters(): void {
     this.filteredSongs = this.songs.filter(song => {
-      const titleMatch = song.title?.toLowerCase().includes(this.filterTitle.toLowerCase()) ?? false;
+      const titleMatch = !this.filterTitle || song.title?.toLowerCase().includes(this.filterTitle.toLowerCase());
+
       const durationMatch = this.parseDuration(song.duration) <= this.selectedDuration;
-      const genreMatch = !this.selectedGenre || song.genre?.name === this.selectedGenre;
-      const instrumentMatch = !this.selectedInstrument ||
-        (song.instruments || []).some(inst => inst.name === this.selectedInstrument);
-      const tempoMatch = !this.selectedTempo || song.tempo?.toString() === this.selectedTempo;
+
+      const genreMatch =
+        this.selectedGenre ? song.genre?.name === this.selectedGenre : true;
+
+      const instrumentMatch =
+        this.selectedInstrument
+          ? (song.instruments || []).some(inst => inst.name === this.selectedInstrument)
+          : true;
+
+      const tempoMatch =
+        this.selectedTempo ? song.tempo?.toString() === this.selectedTempo : true;
 
       return titleMatch && durationMatch && genreMatch && instrumentMatch && tempoMatch;
     });
@@ -122,28 +140,50 @@ export class LibraryComponent implements OnInit {
     this.currentPage = 1;
   }
 
+
+
+
   resetFilters(): void {
     this.filterTitle = '';
-    this.selectedDuration = 180;
+    this.selectedDuration = 90;
     this.selectedGenre = '';
     this.selectedInstrument = '';
     this.selectedTempo = '';
-    this.filteredSongs = [...this.songs];  // 🔥 Restaura todo
+    this.filteredSongs = [...this.songs];
     this.currentPage = 1;
   }
 
   extractFilterOptions(): void {
+    const normalize = (v: string | undefined | null) =>
+      (v ?? '').trim().replace(/^['"]+|['"]+$/g, '');
+
     this.genreOptions = [...new Set(
-      this.songs.map(s => s.genre?.name).filter((g): g is string => !!g)
+      this.songs.map(s => normalize(s.genre?.name)).filter(Boolean)
     )];
 
     this.instrumentOptions = [...new Set(
-      this.songs.flatMap(s => s.instruments?.map(i => i.name) || [])
+      this.songs.flatMap(s => (s.instruments ?? []).map(i => normalize(i.name))).filter(Boolean)
     )];
 
     this.tempoOptions = [...new Set(
-      this.songs.map(s => s.tempo?.toString()).filter((t): t is string => !!t)
+      this.songs.map(s => normalize(String(s.tempo))).filter(Boolean)
     )];
+  }
+
+  deleteSong(songId: number): void {
+    this.playlistService.removeSong(songId).subscribe({
+      next: () => {
+        if (this.currentSong?.id === songId) {
+          this.currentAudio?.pause();
+          this.currentAudio = null;
+          this.currentSong = null;
+        }
+
+        this.songs = this.songs.filter(s => s.id !== songId);
+        this.applyFilters();
+      },
+      error: err => console.error('Error al eliminar canción:', err)
+    });
   }
 
   get totalPages(): number {

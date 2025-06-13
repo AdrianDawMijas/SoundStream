@@ -1,19 +1,19 @@
 <div class="container-fluid p-0">
-  <!-- Hero Section con Video de Fondo -->
+
+  <!-- Hero Section con video de fondo -->
   <section class="hero position-relative">
-    <!-- Video de fondo -->
     <video #bgVideo class="bg-video">
-      <source src="assets/videos/output.mp4" type="video/mp4">
+      <source src="assets/videos/output.mp4" type="video/mp4" />
       Your browser does not support HTML5 video.
     </video>
 
-
-    <!-- Contenedor del contenido sobre el video -->
     <div class="hero-content text-center">
       <h1 class="display-3 fw-bold text-white">SoundStream</h1>
       <p class="lead text-white">
         Create music like never before, powered by artificial intelligence.
       </p>
+
+      <!-- Botón principal -->
       <div class="button-container mt-4">
         <button
           class="btn btn-secondary btn-lg px-5 py-3 shadow circle"
@@ -22,6 +22,7 @@
           Create Now
         </button>
 
+        <!-- Efecto visual -->
         <div class="ripple"></div>
         <div class="ripple"></div>
         <div class="ripple"></div>
@@ -29,58 +30,70 @@
     </div>
   </section>
 
-  <!-- Features Section -->
+  <!-- Sección de llamada a la acción -->
+  <section class="cta my-5 text-center">
+    <h2 class="fw-bold text-white mb-4 display-4">Share Your Music, Listen to Creations</h2>
+    <p class="text-white fs-5 mb-4">
+      Share your tracks with the world, listen to your creations, and collaborate with others.
+    </p>
+
+    <!-- Reproductor -->
+    <div class="player d-flex flex-column align-items-center">
+
+      <!-- Controles -->
+      <div class="mb-3">
+        <button class="btn btn-outline-light btn-lg mx-2 shadow" (click)="playAudio()">
+          <i class="fas fa-play"></i> Play
+        </button>
+        <button class="btn btn-outline-light btn-lg mx-2 shadow" (click)="pauseAudio()">
+          <i class="fas fa-pause"></i> Pause
+        </button>
+        <button class="btn btn-outline-info btn-lg mx-2 shadow" (click)="loadRandomSong()">
+          <i class="fas fa-random"></i> Next
+        </button>
+      </div>
+
+      <!-- Título de canción actual -->
+      <div class="text-white fw-semibold mb-2" *ngIf="currentTitle">
+        Now playing: <span class="text-info">{{ currentTitle }}</span>
+      </div>
+
+      <!-- Barra de progreso -->
+      <div class="progress" style="width: 80%; height: 8px;">
+        <div class="progress-bar bg-primary" [style.width.%]="progress"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de funcionalidades -->
   <section class="features my-5 text-center">
     <h2 class="fw-bold text-white mb-4 display-4">Unleash Your Creativity with AI</h2>
     <p class="text-white fs-5 mb-5">
-      Generate unique music tracks effortlessly using our AI-powered tools. Transform your ideas into beautiful compositions in seconds.
+      Generate unique music tracks effortlessly using our AI-powered tools.
     </p>
+
     <div class="row g-4 justify-content-center">
       <div class="col-md-4">
         <div class="feature-icon-wrapper">
-          <div class="feature-icon">
-            <i class="fas fa-music"></i>
-          </div>
+          <div class="feature-icon"><i class="fas fa-music"></i></div>
         </div>
         <h5 class="text-white mt-3">Create</h5>
       </div>
+
       <div class="col-md-4">
         <div class="feature-icon-wrapper">
-          <div class="feature-icon">
-            <i class="fas fa-wave-square"></i>
-          </div>
+          <div class="feature-icon"><i class="fas fa-wave-square"></i></div>
         </div>
         <h5 class="text-white mt-3">Generate</h5>
       </div>
+
       <div class="col-md-4">
         <div class="feature-icon-wrapper">
-          <div class="feature-icon">
-            <i class="fas fa-guitar"></i>
-          </div>
+          <div class="feature-icon"><i class="fas fa-guitar"></i></div>
         </div>
         <h5 class="text-white mt-3">Compose</h5>
       </div>
     </div>
   </section>
 
-  <!-- Call to Action Section -->
-  <section class="cta my-5 text-center">
-    <h2 class="fw-bold text-white mb-4 display-4">Share Your Music, Listen to Creations</h2>
-    <p class="text-white fs-5">
-      Share your tracks with the world, listen to your creations, and collaborate with others. Explore a community of like-minded creators.
-    </p>
-    <div class="player mt-4 d-flex flex-column align-items-center">
-      <div>
-        <button class="btn btn-outline-light btn-lg mx-2 shadow">
-          <i class="fas fa-play"></i> Play
-        </button>
-        <button class="btn btn-outline-light btn-lg mx-2 shadow">
-          <i class="fas fa-pause"></i> Pause
-        </button>
-      </div>
-      <div class="progress mt-4" style="width: 80%; height: 8px;">
-        <div class="progress-bar bg-primary" style="width: 50%;"></div>
-      </div>
-    </div>
-  </section>
 </div>

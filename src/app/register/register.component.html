@@ -1,12 +1,18 @@
+<!-- Contenedor principal centrado -->
 <div class="container-xl text-center mt-5 p-4">
   <div class="login-box mx-auto p-4 rounded shadow bg-dark">
+
+    <!-- Encabezado -->
     <h4 class="text-white fw-bold">Create Account</h4>
     <p class="text-white-50 small">
-      Already have an account? <a [routerLink]="'/login'" class="text-primary">Log In</a>
+      Already have an account?
+      <a [routerLink]="'/login'" class="text-primary">Log In</a>
     </p>
 
+    <!-- Formulario de registro -->
     <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <!-- Nombre -->
+
+      <!-- Campo nombre -->
       <div class="mb-3 text-start">
         <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre completo">
         <div *ngIf="f['nombre'].touched && f['nombre'].invalid" class="text-danger small mt-1">
@@ -14,7 +20,7 @@
         </div>
       </div>
 
-      <!-- Email -->
+      <!-- Campo email -->
       <div class="mb-3 text-start">
         <input type="email" class="form-control" formControlName="email" placeholder="Correo electrónico">
         <div *ngIf="f['email'].touched && f['email'].invalid" class="text-danger small mt-1">
@@ -23,7 +29,7 @@
         </div>
       </div>
 
-      <!-- Contraseña -->
+      <!-- Campo contraseña -->
       <div class="mb-3 text-start position-relative">
         <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password" placeholder="Contraseña">
         <div *ngIf="f['password'].touched && f['password'].invalid" class="text-danger small mt-1">
@@ -31,7 +37,7 @@
         </div>
       </div>
 
-      <!-- Repetir contraseña -->
+      <!-- Campo repetir contraseña -->
       <div class="mb-3 text-start">
         <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="repeatPassword" placeholder="Repite contraseña">
         <div *ngIf="registerForm.errors?.['mismatch'] && f['repeatPassword'].touched" class="text-danger small mt-1">
@@ -39,18 +45,19 @@
         </div>
       </div>
 
-      <!-- Mostrar contraseña toggle -->
+      <!-- Toggle para mostrar contraseña -->
       <div class="form-check form-switch text-start mb-3">
         <input class="form-check-input" type="checkbox" id="showPass" (change)="togglePassword()">
         <label class="form-check-label text-white-50 small" for="showPass">Mostrar contraseña</label>
       </div>
 
-      <!-- Botón de registro -->
+      <!-- Botón de envío -->
       <button class="btn btn-primary w-100 fw-bold shadow-sm" type="submit">
         <i class="fas fa-user-plus me-2"></i> Start for free
       </button>
     </form>
 
+    <!-- Pie del formulario -->
     <p class="text-white-50 mt-3">Generate all your favorite songs using AI</p>
   </div>
 </div>

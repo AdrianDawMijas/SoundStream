@@ -6,6 +6,7 @@ import {RegisterComponent} from './register/register.component';
 import {PricingComponent} from './pricing/pricing.component';
 import {MusicGeneratorComponent} from './music-generator/music-generator.component';
 import {LibraryComponent} from './library/library.component';
+import {ProfileComponent} from './profile/profile.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent }, // Ruta raíz (Landing)
@@ -13,7 +14,8 @@ export const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'pricing', component: PricingComponent },
   { path: 'music-generator', component: MusicGeneratorComponent},
-  { path: 'library', component: LibraryComponent}
+  { path: 'library', component: LibraryComponent},
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({

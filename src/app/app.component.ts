@@ -24,6 +24,10 @@ export class AppComponent {
     return this.router.url.includes('/music');
   }
 
+  isLanding(): boolean {
+    return this.router.url ===('/');
+  }
+
   hideFooterRoutes(): boolean {
     return this.router.url.includes('/music') || this.router.url.includes('/library');
   }

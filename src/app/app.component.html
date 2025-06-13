@@ -12,6 +12,6 @@
   </main>
 
   <!-- Footer (solo en rutas que no son /library ni /music) -->
-  <app-footer *ngIf="!hideFooterRoutes()" class="bg-dark text-white text-center z-3"></app-footer>
+  <app-footer *ngIf="isLanding()" class="bg-dark text-white text-center z-3"></app-footer>
 </div>
 </body>

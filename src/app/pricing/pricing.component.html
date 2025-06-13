@@ -1,10 +1,13 @@
+<!-- Contenedor principal con espaciado superior -->
 <div class="container-xl text-center pt-5">
+
+  <!-- Título principal solo visible en pantallas medianas o mayores -->
   <h1 class="fw-bold display-5 text-white d-none d-md-block">Princing prices</h1>
   <p class="text-light fs-6 d-none d-md-block">
     Start your AI music creation journey now and experience limitless possibilities!
   </p>
 
-  <!-- Botón de alternancia Mensual/Anual -->
+  <!-- Botón de alternancia entre pago mensual y anual -->
   <div class="btn-group my-3">
     <button
       class="btn btn-outline-light px-3 py-1 small"
@@ -20,25 +23,48 @@
     </button>
   </div>
 
-  <!-- Sección de Precios -->
+  <!-- Sección con las tarjetas de los planes -->
   <div class="row justify-content-center">
     <div *ngFor="let plan of plans" class="col-lg-4 col-md-6 mb-3">
-      <div class="card text-white bg-dark shadow-sm rounded-3 h-100">
+
+      <!-- Tarjeta de plan individual -->
+      <div
+        class="card text-white bg-dark shadow-sm rounded-3 h-100 border-3"
+        [ngClass]="{
+          'border-success border-opacity-100': currentSubscription === plan.name.toUpperCase(),
+          'border-opacity-25': currentSubscription !== plan.name.toUpperCase()
+        }"
+      >
+
+        <!-- Contenido de la tarjeta -->
         <div class="card-body py-3 px-3 text-start">
+
+          <!-- Nombre del plan -->
           <h3 class="fw-bold fs-6 pb-3">{{ plan.name }}</h3>
+
+          <!-- Precio actual del plan -->
           <h2 class="fw-bold fs-4">
             ${{ isMonthly ? plan.monthly : plan.annual }}
             <span class="fs-7 text-white-50">{{ isMonthly ? 'Monthly' : 'Annually' }}</span>
           </h2>
+
+          <!-- Indicador de ahorro si está en modo mensual -->
           <p *ngIf="isMonthly && plan.name !== 'Free'" class="text-success small">
             Save 20% on annual
           </p>
-          <p *ngIf="isMonthly && plan.name == 'Free'" class="text-dark small">
+          <p *ngIf="isMonthly && plan.name === 'Free'" class="text-dark small">
             Save 20% on annual
           </p>
-          <button class="btn btn-primary w-100 fw-bold rounded-pill py-1 small">
+
+          <!-- Botón para seleccionar plan -->
+          <button
+            class="btn btn-primary w-100 fw-bold rounded-pill py-1 small d-flex align-items-center justify-content-center gap-2"
+            (click)="selectPlan(plan)">
             Select
+            <i *ngIf="currentSubscription === plan.name.toUpperCase()" class="fas fa-check-circle text-white"></i>
           </button>
+
+          <!-- Lista de características del plan -->
           <p class="mt-2 fw-bold text-light small pt-2">Everything in {{ plan.name }}:</p>
           <ul class="list-unstyled text-white-50 small">
             <li *ngIf="plan.name === 'Free'">✔ 15 track creations / day</li>
@@ -49,8 +75,10 @@
             <li>✔ High quality MP3, WAV</li>
             <li *ngIf="plan.name === 'Pro'">✔ General commercial use</li>
           </ul>
+
         </div>
       </div>
+
     </div>
   </div>
 </div>

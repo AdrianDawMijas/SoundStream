@@ -1,17 +1,26 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../service/auth.service';
-import {Router} from '@angular/router';
+import { Component } from '@angular/core';
+import { AuthService } from '../service/auth.service';
+import { Router } from '@angular/router';
 
+/**
+ * FooterComponent
+ * Muestra el pie de página general del sitio, incluyendo enlaces rápidos y redes sociales.
+ */
 @Component({
   selector: 'app-footer',
-  imports: [],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrls: ['./footer.component.css']
 })
-export class FooterComponent{
+export class FooterComponent {
+
+  /**
+   * Estado del usuario autenticado (opcional, no se utiliza actualmente en la plantilla).
+   */
   loggedIn = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
-
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
 }
