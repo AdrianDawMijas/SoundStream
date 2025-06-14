@@ -81,7 +81,7 @@ export class LandingComponent implements AfterViewInit {
   loadRandomSong(): void {
     this.pauseAudio();
 
-    this.http.get<any>('http://localhost:8080/v1/api/songs/random').subscribe(song => {
+    this.http.get<any>('https://soundstream-backend-gt2y.onrender.com/v1/api/songs/random').subscribe(song => {
       if (song?.generatedUrl) {
         this.audio = new Audio(song.generatedUrl);
         this.audio.volume = 0.6;
