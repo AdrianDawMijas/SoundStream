@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/v1/api/users';
+  private apiUrl = 'https://soundstream-backend-gt2y.onrender.com/v1/api/users';
 
   constructor(private http: HttpClient) {}
 

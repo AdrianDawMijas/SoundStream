@@ -6,7 +6,7 @@ import { Song } from '../model/Song';
 
 @Injectable({ providedIn: 'root' })
 export class PlaylistService {
-  private api = 'http://localhost:8080/v1/api/songs';
+  private api = 'https://soundstream-backend-gt2y.onrender.com/v1/api/songs';
 
   constructor(private http: HttpClient) {}
 
@@ -14,12 +14,12 @@ export class PlaylistService {
 
   // Obtiene todas las canciones generadas por un usuario concreto
   getSongsByUser(userId: number): Observable<Song[]> {
-    return this.http.get<Song[]>(`http://localhost:8080/v1/api/songs/user/${userId}`);
+    return this.http.get<Song[]>(`https://soundstream-backend-gt2y.onrender.com/v1/api/songs/user/${userId}`);
   }
 
   // Obtiene todas las canciones disponibles (solo admins)
   getAllSongs(): Observable<Song[]> {
-    return this.http.get<Song[]>('http://localhost:8080/v1/api/songs');
+    return this.http.get<Song[]>('https://soundstream-backend-gt2y.onrender.com/v1/api/songs');
   }
 
   // ──────────────── GESTIÓN DE PLAYLISTS ────────────────
@@ -67,6 +67,6 @@ export class PlaylistService {
       params.instrumentIds = instrumentIds.join(',');
     }
 
-    return this.http.get<Song[]>(`http://localhost:8080/v1/api/songs/user/${userId}/filter`, { params });
+    return this.http.get<Song[]>(`https://soundstream-backend-gt2y.onrender.com/v1/api/songs/user/${userId}/filter`, { params });
   }
 }

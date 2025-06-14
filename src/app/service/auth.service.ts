@@ -14,7 +14,7 @@ export interface LoginResponseDTO {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private readonly apiUrl = 'http://localhost:8080/v1/api/users';
+  private readonly apiUrl = 'https://soundstream-backend-gt2y.onrender.com/v1/api/users';
   private currentUser: LoginResponseDTO | null = null;
 
   // Estado observable de sesión iniciada

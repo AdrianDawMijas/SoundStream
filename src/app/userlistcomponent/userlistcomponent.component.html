@@ -1,0 +1,46 @@
+<!-- Tabla de usuarios -->
+<table class="table table-dark table-sm table-hover align-middle text-center w-100">
+
+  <!-- Encabezado de tabla -->
+  <thead class="table-light">
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Email</th>
+    <th>Rol</th>
+    <th>Acciones</th>
+  </tr>
+  </thead>
+
+  <!-- Cuerpo de tabla: renderizado dinámico de usuarios -->
+  <tbody>
+  <tr *ngFor="let user of users">
+    <!-- ID de usuario -->
+    <td>{{ user.id }}</td>
+
+    <!-- Nombre del usuario -->
+    <td>{{ user.nombre }}</td>
+
+    <!-- Email con ajuste de línea en caso de textos largos -->
+    <td class="text-break">{{ user.email }}</td>
+
+    <!-- Rol editable con dropdown -->
+    <td>
+      <select
+        class="form-select form-select-sm bg-dark text-white"
+        [(ngModel)]="user.role"
+        (change)="updateRole(user)">
+        <option [ngValue]="'USER'">USER</option>
+        <option [ngValue]="'ADMIN'">ADMIN</option>
+      </select>
+    </td>
+
+    <!-- Botón para eliminar usuario -->
+    <td>
+      <button class="btn btn-sm btn-outline-danger" (click)="deleteUser(user.id)">
+        <i class="bi bi-trash"></i> Eliminar
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>

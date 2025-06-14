@@ -15,7 +15,7 @@ export interface SongDTO {
 
 @Injectable({ providedIn: 'root' })
 export class SongService {
-  private apiUrl = 'http://localhost:8080/v1/api/songs/generate';
+  private apiUrl = 'https://soundstream-backend-gt2y.onrender.com/v1/api/songs/generate';
 
   constructor(private http: HttpClient) {}
 
