@@ -1,12 +1,11 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import {RouterLink} from '@angular/router';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-modal-start-free',
+  standalone: true, // ✅ Añade esto
+  imports: [RouterLink], // ✅ Ahora sí es válido
   templateUrl: './modal-start-free.component.html',
-  imports: [
-    RouterLink
-  ],
   styleUrls: ['./modal-start-free.component.css']
 })
 export class ModalStartFreeComponent {
