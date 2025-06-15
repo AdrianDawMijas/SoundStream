@@ -98,11 +98,6 @@
         <div class="d-flex flex-wrap gap-2 mt-1">
           <span class="badge bg-secondary" *ngIf="song.genre?.name">{{ song.genre?.name }}</span>
           <span class="badge bg-info text-dark" *ngIf="song.subgenre?.name">{{ song.subgenre?.name }}</span>
-          <span
-            class="badge bg-light text-dark"
-            *ngFor="let inst of song.instruments">
-            {{ inst.name }}
-          </span>
           <span class="badge bg-warning text-dark" *ngIf="song.tempo">{{ song.tempo }}</span>
           <span class="badge bg-success text-white" *ngIf="song.duration">
             {{ formatDuration(song.duration) }}
