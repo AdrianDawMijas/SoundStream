@@ -126,15 +126,11 @@ export class LibraryComponent implements OnInit {
       const genreMatch =
         this.selectedGenre ? song.genre?.name === this.selectedGenre : true;
 
-      const instrumentMatch =
-        this.selectedInstrument
-          ? (song.instruments || []).some(inst => inst.name === this.selectedInstrument)
-          : true;
 
       const tempoMatch =
         this.selectedTempo ? song.tempo?.toString() === this.selectedTempo : true;
 
-      return titleMatch && durationMatch && genreMatch && instrumentMatch && tempoMatch;
+      return titleMatch && durationMatch && genreMatch && tempoMatch;
     });
 
     this.currentPage = 1;
@@ -161,9 +157,6 @@ export class LibraryComponent implements OnInit {
       this.songs.map(s => normalize(s.genre?.name)).filter(Boolean)
     )];
 
-    this.instrumentOptions = [...new Set(
-      this.songs.flatMap(s => (s.instruments ?? []).map(i => normalize(i.name))).filter(Boolean)
-    )];
 
     this.tempoOptions = [...new Set(
       this.songs.map(s => normalize(String(s.tempo))).filter(Boolean)
