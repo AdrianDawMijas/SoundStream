@@ -26,7 +26,7 @@ export class UserlistcomponentComponent implements OnInit {
   users: User[] = [];
 
   // URL base de la API de usuarios
-  private readonly apiUrl = 'http://localhost:8080/v1/api/users';
+  private readonly apiUrl = 'https://sound-stream-omega.vercel.app/v1/api/users';
 
   constructor(private http: HttpClient) {}
 
