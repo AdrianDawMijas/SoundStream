@@ -34,7 +34,7 @@ export class LibraryComponent implements OnInit {
   selectedTempo = '';
 
   genreOptions: string[] = [];
-  instrumentOptions: string[] = [];
+  // instrumentOptions: string[] = [];
   tempoOptions: string[] = [];
 
   currentPage = 1;
@@ -143,7 +143,7 @@ export class LibraryComponent implements OnInit {
     this.filterTitle = '';
     this.selectedDuration = 90;
     this.selectedGenre = '';
-    this.selectedInstrument = '';
+    // this.selectedInstrument = '';
     this.selectedTempo = '';
     this.filteredSongs = [...this.songs];
     this.currentPage = 1;
