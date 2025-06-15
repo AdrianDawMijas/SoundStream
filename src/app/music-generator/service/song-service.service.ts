@@ -8,7 +8,7 @@ export interface SongDTO {
   subgenre: string | null;
   duration: number | null;
   tempo: number | null;
-  instrumentNames: string[] | null;
+  // instrumentNames: string[] | null;
   promptText: string;
   userId: number;
 }
@@ -19,7 +19,15 @@ export class SongService {
 
   constructor(private http: HttpClient) {}
 
-  generateSong(song: SongDTO): Observable<any> {
+  generateSong(song: {
+    genre: string | null;
+    subgenre: string | null;
+    duration: number | null;
+    tempo: number | null;
+    promptText: string;
+    userId: number;
+  }): Observable<any> {
+
     return this.http.post(this.apiUrl, song);
   }
 }

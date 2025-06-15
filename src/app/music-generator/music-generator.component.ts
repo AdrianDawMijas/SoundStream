@@ -108,10 +108,10 @@ export class MusicGeneratorComponent {
       subgenre: this.genrePanel.getSelectedSubGenre(),
       duration: this.isActive('duration') ? this.durationPanel.selectedDuration : null,
       tempo: this.isActive('tempo') ? this.tempoPanel.getSelectedTempo() : null,
-      instrumentNames: this.isActive('gear') ? this.gearPanel.gears.filter(g => g.quantity > 0).map(g => g.name) : [],
       promptText: '',
       userId: currentUser.id
     };
+
 
     this.songService.generateSong(songDTO).subscribe({
       next: res => {

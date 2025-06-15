@@ -12,5 +12,5 @@ export interface Song {
   promptText?: string;
   genre?: { name: string };
   subgenre?: { name: string };
-  instruments?: Instrument[];
+  // instruments?: Instrument[];
 }
